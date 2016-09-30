@@ -1,10 +1,8 @@
 package com.example.chronvas.realmtesting;
 
 import android.content.res.Resources;
-import android.os.AsyncTask;
 import android.util.Log;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 import io.realm.Realm;
@@ -12,33 +10,37 @@ import io.realm.Realm;
 /**
  * From json to realm database
  */
-public class RealmImporter extends AsyncTask<Void, Void, Long> {
+public class RealmImporter {
 
     Resources resources;
+    TransactionTime transactionTime;
 
     public RealmImporter(Resources resources) {
         this.resources = resources;
     }
 
-    @Override
-    protected Long doInBackground(Void... voids) {
+    public void importFromJson(){
         Realm realm = Realm.getDefaultInstance();
-        //count time start
-        long start = System.currentTimeMillis();
-        InputStream inputStream = resources.openRawResource(R.raw.people);
-        try {
-            realm.beginTransaction();
-            realm.createAllFromJson(People.class, inputStream);
-            realm.commitTransaction();
-        } catch (IOException e) {
-            Log.e("error", "json");
-            realm.cancelTransaction();
-            e.printStackTrace();
-        }
-        //count time stop
-        long elapsedTime = System.currentTimeMillis() - start;
-        Log.e( "doInBackground: ","Task completed in " + elapsedTime + "ms" );
-        return null;
+
+        //transaction timer
+        transactionTime = new TransactionTime();
+        transactionTime.setStart(System.currentTimeMillis());
+
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                InputStream inputStream = resources.openRawResource(R.raw.people);
+                try {
+                    realm.createAllFromJson(People.class, inputStream);
+                    transactionTime.setEnd(System.currentTimeMillis());
+                } catch (Exception e){
+                    realm.cancelTransaction();
+                }
+
+            }
+        });
+        if (!realm.isClosed()) realm.close();
+        Log.d( "Realm","createAllFromJson Task completed in " + transactionTime.getDuration() + "ms" );
     }
 
 }
