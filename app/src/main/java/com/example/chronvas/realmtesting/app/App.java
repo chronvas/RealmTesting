@@ -18,7 +18,17 @@
         public void onCreate() {
             super.onCreate();
 
-            copyBundledRealmFile(this.getResources().openRawResource(R.raw.testdb), "testdb.realm");
+            //Set true to overwrite database - Optional
+            boolean overwriteDatabase = true;
+
+            if (overwriteDatabase){
+                copyBundledRealmFile(this.getResources().openRawResource(R.raw.testdb), "testdb.realm");
+            }else{
+                //check if the db is already in place
+                if (!fileFound("testdb.realm", this.getFilesDir())){
+                    copyBundledRealmFile(this.getResources().openRawResource(R.raw.testdb), "testdb.realm");
+                }
+            }
 
             //Config Realm for the application
             RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this)
@@ -43,5 +53,18 @@
                 e.printStackTrace();
             }
             return null;
+        }
+
+        public boolean fileFound(String name, File file) {
+            File[] list = file.listFiles();
+            if (list != null)
+                for (File fil : list) {
+                    if (fil.isDirectory()) {
+                        fileFound(name, fil);
+                    } else if (name.equalsIgnoreCase(fil.getName())) {
+                        return true;
+                    }
+                }
+            return false;
         }
     }
