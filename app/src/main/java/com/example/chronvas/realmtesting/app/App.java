@@ -31,7 +31,8 @@
             }
 
             //Config Realm for the application
-            RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this)
+            Realm.init(this);
+            RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
                     .name("testdb.realm")
                     .build();
 
