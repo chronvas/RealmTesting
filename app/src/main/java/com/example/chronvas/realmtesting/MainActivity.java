@@ -9,11 +9,15 @@ import android.widget.Button;
 import io.realm.Realm;
 
 public class MainActivity extends AppCompatActivity {
-    public TransactionTime transactionTime;
+
+    Realm realm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        realm = Realm.getDefaultInstance();
 
         Button importbtn = (Button) findViewById(R.id.importbtn);
         importbtn.setOnClickListener(new View.OnClickListener() {
@@ -28,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         countbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Realm realm = Realm.getDefaultInstance();
+                realm = Realm.getDefaultInstance();
 
                 int people = realm.where(People.class).findAll().size();
                 if (people>0) {
@@ -36,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
                 }else {
                     Snackbar.make(view, "Found no people in the database!", Snackbar.LENGTH_LONG).show();
                 }
-                realm.close();
+
             }
         });
 
@@ -44,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
         viewNamebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Realm realm = Realm.getDefaultInstance();
                 People first = realm.where(People.class).findFirst();
                 Snackbar.make(view, "First person's name is: "+ first.getName() + " and his age is: " + first.getAge(), Snackbar.LENGTH_LONG).show();
             }
@@ -54,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
         changeNamebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Realm realm = Realm.getDefaultInstance();
                 realm.executeTransaction(new Realm.Transaction() {
                     @Override
                     public void execute(Realm realm) {
@@ -62,10 +64,15 @@ public class MainActivity extends AppCompatActivity {
                         michael.setName("John");
                     }
                 });
-                if (!realm.isClosed()) realm.close();
             }
         });
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (!realm.isClosed()) realm.close();
+        super.onDestroy();
     }
 
 

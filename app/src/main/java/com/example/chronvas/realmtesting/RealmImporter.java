@@ -39,7 +39,7 @@ public class RealmImporter {
 
             }
         });
-        if (!realm.isClosed()) realm.close();
+
         Log.d( "Realm","createAllFromJson Task completed in " + transactionTime.getDuration() + "ms" );
     }
 

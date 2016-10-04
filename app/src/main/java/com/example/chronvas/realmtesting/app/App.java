@@ -19,7 +19,7 @@
             super.onCreate();
 
             //Set true to overwrite database - Optional
-            boolean overwriteDatabase = true;
+            boolean overwriteDatabase = false;
 
             if (overwriteDatabase){
                 copyBundledRealmFile(this.getResources().openRawResource(R.raw.testdb), "testdb.realm");
