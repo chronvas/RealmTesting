@@ -35,12 +35,13 @@ public class MainActivity extends AppCompatActivity {
                 realm = Realm.getDefaultInstance();
 
                 int people = realm.where(People.class).findAll().size();
-                if (people>0) {
-                    Snackbar.make(view, "Found: " + people + " people in the database", Snackbar.LENGTH_LONG).show();
-                }else {
+                if (people > 0) {
+                    Snackbar.make(view,
+                            "Found: " + people +
+                                    " people in the database", Snackbar.LENGTH_LONG).show();
+                } else {
                     Snackbar.make(view, "Found no people in the database!", Snackbar.LENGTH_LONG).show();
                 }
-
             }
         });
 
@@ -49,7 +50,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 People first = realm.where(People.class).findFirst();
-                Snackbar.make(view, "First person's name is: "+ first.getName() + " and his age is: " + first.getAge(), Snackbar.LENGTH_LONG).show();
+                Snackbar.make(view,
+                        "First person's name is: " + first.getName() +
+                                " and his age is: " + first.getAge(), Snackbar.LENGTH_LONG).show();
             }
         });
 
@@ -66,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
-
     }
 
     @Override
@@ -74,6 +76,4 @@ public class MainActivity extends AppCompatActivity {
         if (!realm.isClosed()) realm.close();
         super.onDestroy();
     }
-
-
 }
