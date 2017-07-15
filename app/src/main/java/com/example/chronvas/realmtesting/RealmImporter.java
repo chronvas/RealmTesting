@@ -19,12 +19,11 @@ public class RealmImporter {
         this.resources = resources;
     }
 
-    public void importFromJson(){
+    public void importFromJson() {
         Realm realm = Realm.getDefaultInstance();
 
         //transaction timer
-        transactionTime = new TransactionTime();
-        transactionTime.setStart(System.currentTimeMillis());
+        transactionTime = new TransactionTime(System.currentTimeMillis());
 
         realm.executeTransaction(new Realm.Transaction() {
             @Override
@@ -33,14 +32,13 @@ public class RealmImporter {
                 try {
                     realm.createAllFromJson(People.class, inputStream);
                     transactionTime.setEnd(System.currentTimeMillis());
-                } catch (Exception e){
-                    realm.cancelTransaction();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    realm.close();
                 }
-
             }
         });
-
-        Log.d( "Realm","createAllFromJson Task completed in " + transactionTime.getDuration() + "ms" );
+        Log.d("Realm", "createAllFromJson Task completed in " + transactionTime.getDuration() + "ms");
     }
-
 }
