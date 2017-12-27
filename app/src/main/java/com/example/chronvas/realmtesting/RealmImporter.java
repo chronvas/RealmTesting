@@ -12,18 +12,11 @@ import io.realm.Realm;
  */
 public class RealmImporter {
 
-    Resources resources;
-    TransactionTime transactionTime;
-
-    public RealmImporter(Resources resources) {
-        this.resources = resources;
-    }
-
-    public void importFromJson() {
+    static void importFromJson(final Resources resources) {
         Realm realm = Realm.getDefaultInstance();
 
         //transaction timer
-        transactionTime = new TransactionTime(System.currentTimeMillis());
+        final TransactionTime transactionTime = new TransactionTime(System.currentTimeMillis());
 
         realm.executeTransaction(new Realm.Transaction() {
             @Override
