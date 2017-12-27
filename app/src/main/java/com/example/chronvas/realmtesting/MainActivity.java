@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
         realm = Realm.getDefaultInstance();
 
-        Button importbtn = (Button) findViewById(R.id.importbtn);
+        Button importbtn = findViewById(R.id.importbtn);
         importbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button countbtn = (Button) findViewById(R.id.count);
+        Button countbtn = findViewById(R.id.count);
         countbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button viewNamebtn = (Button) findViewById(R.id.viewname);
+        Button viewNamebtn = findViewById(R.id.viewname);
         viewNamebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,13 +56,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button changeNamebtn = (Button) findViewById(R.id.changename);
+        Button changeNamebtn = findViewById(R.id.changename);
         changeNamebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 realm.executeTransaction(new Realm.Transaction() {
                     @Override
-                    public void execute(Realm realm) {
+                    public void execute(@NonNull Realm realm) {
                         People michael = realm.where(People.class).findFirst();
                         michael.setName("John");
                     }
