@@ -1,4 +1,4 @@
-package com.example.chronvas.realmtesting;
+package com.chronvas.realmtesting;
 
 import android.content.res.Resources;
 import android.util.Log;

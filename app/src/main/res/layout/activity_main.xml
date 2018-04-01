@@ -1,41 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-
-    android:orientation="vertical"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.chronvas.realmtesting.MainActivity">
-
+    android:orientation="vertical"
+    tools:context="com.chronvas.realmtesting.MainActivity">
 
     <Button
-        android:paddingTop="8dp"
-        android:text="Import from Json"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/importbtn"
-        style="@android:style/Widget.Button" />
-
-    <Button
-        android:text="count People"
+        style="@android:style/Widget.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Import from Json"
+        />
+
+    <Button
         android:id="@+id/count"
-        style="@android:style/Widget.Button" />
-
-    <Button
-        android:text="Change 1st person's name"
+        style="@android:style/Widget.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="count People"
+        />
+
+    <Button
         android:id="@+id/changename"
-        style="@android:style/Widget.Button" />
-
-    <Button
-        android:text="View 1st person"
+        style="@android:style/Widget.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Change 1st person's name"
+        />
+
+    <Button
         android:id="@+id/viewname"
-        style="@android:style/Widget.Button" />
+        style="@android:style/Widget.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View 1st person"
+        />
 </LinearLayout>

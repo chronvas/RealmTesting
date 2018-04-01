@@ -1,4 +1,4 @@
-package com.example.chronvas.realmtesting;
+package com.chronvas.realmtesting;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

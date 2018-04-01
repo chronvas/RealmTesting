@@ -1,4 +1,4 @@
-package com.example.chronvas.realmtesting;
+package com.chronvas.realmtesting;
 
 /**
  * Created by chronvas on 30/9/2016.
